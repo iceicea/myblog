@@ -17,7 +17,7 @@ export default defineConfig({
     siteTitle: "Hello World",
     nav: [
       { text: "首页", link: "/" },
-      { text: "面试题", link: "/interview/handwriting" },
+      { text: "面试题", link: "/interview/js/handwriting" },
       { text: "React相关", link: "" },
       {
         text: "下拉菜单测试",
@@ -35,7 +35,7 @@ export default defineConfig({
           text: "JS相关面试题",
           collapsed: true,
           items: [
-            { text: "手写题", link: "/interview/handwriting" },
+            { text: "手写题", link: "/interview/js/handwriting" },
             { text: "Runtime API Examples", link: "/api-examples" },
           ],
         },
@@ -43,8 +43,15 @@ export default defineConfig({
           text: "CSS相关面试题",
           collapsed: true,
           items: [
-            { text: "Markdown Examples", link: "/interview/handwriting" },
+            { text: "Markdown Examples", link: "/interview/js/handwriting" },
             { text: "Runtime API Examples", link: "/api-examples" },
+          ],
+        },
+        {
+          text: "每日一问",
+          collapsed: true,
+          items: [
+            { text: "虚拟DOM相关", link: "/interview/everyday/20240821" },
           ],
         },
       ],

@@ -236,6 +236,87 @@ console.log(myInstanceOf(myInstance, Object)); // true，因为MyClass继承自O
 console.log(myInstanceOf(myInstance, Array)); // false
 ```
 
+## 9. 封装 ajax
+
+![](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408212126801.png)
+![](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408212127256.png)
+
+### 1. 原生实现
+
+```js
+function ajax(url) {
+  let xhr = new XMLHttpRequest();
+  xhr.open("get", url);
+  xhr.onreadystatechange = () => {
+    if (xhr.readyState === 4) {
+      if (xhr.status >= 200 && xhr.send < 300) {
+        console.log(xhr.responseText);
+      }
+    }
+  };
+  xhr.send(null);
+}
+```
+
+### 2. 基于 Promise
+
+```js
+function ajax(url) {
+  return new Promise((resolve, reject) => {
+    let xhr = new XMLHttpRequest();
+    xhr.open("get", url);
+    xhr.onreadystatechange = () => {
+      if (xhr.readyState === 4) {
+        if (xhr.status >= 200 && xhr.status < 300) {
+          resolve(JSON.parse(xhr.responseText));
+        } else {
+          reject("error");
+        }
+      }
+    };
+    xhr.send(null);
+  });
+}
+ajax(url)
+  .then((res) => console.log(res))
+  .catch((reson) => console.log(reson));
+```
+
+## 10. 实现 Object.is
+
+:::tip
+Object.is() 确定两个值是否为相同值。如果以下其中一项成立，则两个值相同：
+
+- 都是 undefined -都是 null
+- 都是 true 或者都是 false
+- 都是长度相同、字符相同、顺序相同的字符串
+- 都是相同的对象（意味着两个值都引用了内存中的同一对象）
+- 都是 BigInt 且具有相同的数值
+- 都是 symbol 且引用相同的 symbol 值
+- 都是数字且
+- 都是 +0
+- 都是 -0
+- 都是 NaN
+- 都有相同的值，非零且都不是 NaN
+
+Object.is() 与 == 运算符并不等价。== 运算符在测试相等性之前，会对两个操作数进行类型转换（如果它们不是相同的类型），这可能会导致一些非预期的行为，例如 "" == false 的结果是 true，但是 Object.is() 不会对其操作数进行类型转换。
+Object.is() 也不等价于 === 运算符。Object.is() 和 === 之间的唯一区别在于它们处理带符号的 0 和 NaN 值的时候。=== 运算符（和 == 运算符）将数值 -0 和 +0 视为相等，但是会将 NaN 视为彼此不相等。
+:::
+
+```js
+Object.is = function (x, y) {
+  // 当前情况下，只有一种情况是特殊的，即 +0 -0
+  // 如果 x !== 0，则返回true
+  // 如果 x === 0，则需要判断+0和-0，则可以直接使用 1/+0 === Infinity 和 1/-0 === -Infinity来进行判断
+  if (x === y) {
+    return x !== 0 || 1 / x === 1 / y;
+  }
+  // x !== y 的情况下，只需要判断是否为NaN，如果x!==x，则说明x是NaN，同理y也一样
+  // x和y同时为NaN时，返回true
+  return x !== x && y !== y;
+};
+```
+
 :::tip
 
 :::
