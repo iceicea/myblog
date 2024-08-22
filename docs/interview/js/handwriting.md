@@ -317,9 +317,93 @@ Object.is = function (x, y) {
 };
 ```
 
-:::tip
+## 11. 实现单例模式
+
+::: code-group
+
+```js [构造函数]
+let singleDemo;
+function SingleDemo() {
+  if (!singleDemo) {
+    singleDemo = this;
+  }
+  return singleDemo;
+}
+SingleDemo.prototype.show = function () {
+  console.log("单例模式");
+};
+const single1 = new SingleDemo();
+const single2 = new SingleDemo();
+console.log(single1 === single2);
+```
+
+```js [静态方法]
+class SingleDemo {
+  show() {
+    console.log("单例模式");
+  }
+  static getInstance() {
+    if (!SingleDemo.instance) {
+      SingleDemo.instance = new SingleDemo();
+    }
+    return SingleDemo.instance();
+  }
+}
+```
+
+```js [闭包]
+class SingleDemo {
+  show() {
+    console.log("单例模式");
+  }
+}
+SingleDemo.getInstance = (function () {
+  let instance = null;
+  return function () {
+    if (!instance) {
+      instance = new SingleDemo();
+    }
+    return instance;
+  };
+})();
+```
 
 :::
+
+## 12. 实现柯里化函数
+
+:::tip
+预先处理的思想，利用闭包的机制
+
+- 柯里化的定义：接收一部分参数，返回一个函数接收剩余参数，接收足够参数后，执行原函数
+- 函数柯里化的主要作用和特点就是参数复用、提前返回和延迟执行
+  :::
+
+```js
+function curry(func) {
+  return function curried(...args1) {
+    if (args1.length >= func.length) {
+      return func.apply(this.args1);
+    } else {
+      return function (...args2) {
+        return curried.apply(this, args1.concat(args2));
+      };
+    }
+  };
+}
+```
+
+## 13. 实现数组的 reduce 方法
+
+```js
+Array.prototype.myReduce = function (fn, s = 0) {
+  let ret = s;
+  for (let i = 0; i < this.length; i++) {
+    res = fn(res, this[i]);
+  }
+  return res;
+};
+```
 
 ::: info
 This is an info box.

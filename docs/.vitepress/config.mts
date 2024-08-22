@@ -52,6 +52,10 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "虚拟DOM相关", link: "/interview/everyday/20240821" },
+            {
+              text: "二叉树的最近公共祖先",
+              link: "/interview/everyday/20240822",
+            },
           ],
         },
       ],
