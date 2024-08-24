@@ -36,15 +36,17 @@ export default defineConfig({
           collapsed: true,
           items: [
             { text: "手写题", link: "/interview/js/handwriting" },
-            { text: "Runtime API Examples", link: "/api-examples" },
+            { text: "文章", link: "/typescript/importtype" },
           ],
         },
         {
           text: "CSS相关面试题",
           collapsed: true,
           items: [
-            { text: "Markdown Examples", link: "/interview/js/handwriting" },
-            { text: "Runtime API Examples", link: "/api-examples" },
+            {
+              text: "BFE.dev上的一些CSS题目",
+              link: "/interview/css/BFEdev",
+            },
           ],
         },
         {
@@ -55,6 +57,14 @@ export default defineConfig({
             {
               text: "二叉树的最近公共祖先",
               link: "/interview/everyday/20240822",
+            },
+            {
+              text: "DOM树",
+              link: "/interview/everyday/20240823",
+            },
+            {
+              text: "什么是Fiber",
+              link: "/interview/everyday/20240824",
             },
           ],
         },

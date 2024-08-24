@@ -405,6 +405,115 @@ Array.prototype.myReduce = function (fn, s = 0) {
 };
 ```
 
+## 14. 实现发布订阅模式/观察者模式
+
+::: tip
+观察者模式定义了一种一对多的依赖关系，让多个观察者对象同时监听某一个目标对象，当这个目标对象的状态发生变化时，会通知所有观察者对象，使它们能够自动更新;发布订阅模式跟观察者模式很像，但它发布和订阅是不互相依赖的，因为有一个统一调度中心
+
+:::
+::: code-group
+
+```js [观察者模式]
+// 定义被观察者类
+class Subject {
+  constructor() {
+    this.observers = [];
+    this.state = "hello world";
+  }
+  // 获取状态
+  getState() {
+    return this.state;
+  }
+  //增加观察者
+  add(observer) {
+    this.observers.push(observer);
+  }
+  //移除观察者
+  remove(observer) {
+    this.observers.forEach((o, i) => {
+      if (o === observer) {
+        this.observers.splice(i, 1);
+      }
+    });
+  }
+  //更新状态并通知
+  setState(newState) {
+    this.state = newState;
+    this.notify();
+  }
+  //通知所有观察者
+  notify() {
+    this.observers.forEach((o) => o.update(this));
+  }
+}
+
+//定义观察者类
+class Observer {
+  constructor(name) {
+    this.name = this.name;
+  }
+  //更新
+  update(subject) {
+    console.log(`${this.name} is Observing ${subject.getState()}`);
+  }
+}
+```
+
+```js [发布订阅模式]
+class EventBus {
+  constructor() {
+    // 缓存列表,用来存放注册的事件与回调
+    this.cache = {};
+  }
+  //订阅事件
+  on(name, fn) {
+    // 如果当前事件没有订阅过，就给事件创建一个队列
+    if (!this.cache[name]) {
+      //由于一个事件可能注册多个回调函数，所以使用数组来存储事件队列
+      this.cache[name] = [];
+    }
+    this.cache[name].push(fn);
+  }
+  //触发事件
+  emit(name, ...args) {
+    // 检查目标事件是否有监听函数队列
+    if (this.cache[name]) {
+      // 逐个调用队列里的回调函数
+      this.cache[name].forEach((cb) => cb(...args));
+    }
+  }
+  //取消订阅
+  off(name, fn) {
+    const fns = this.cache[name];
+    const index = fns.indexOf(fn);
+    if (index !== -1) {
+      fns.splice(index, 1);
+    }
+  }
+  //只订阅一次
+  once(name, fn) {
+    // 执行完第一次回调函数后，自动删除当前订阅事件
+    const newFn = (...args) => {
+      fn(...args);
+      this.off(name, newFn);
+    };
+    this.on(name, newFn);
+  }
+}
+// 测试
+let eventBus = new EventBus();
+let event1 = function (...args) {
+  console.log(`通知1-订阅者小陈老师,小明同学当前心情状态：${args}`);
+};
+// 订阅事件，只订阅一次
+eventBus.once("teacherName1", event1);
+// 发布事件
+eventBus.emit("teacherName1", "教室", "上课", "打架", "愤怒");
+eventBus.emit("teacherName1", "教室", "上课", "打架", "愤怒");
+eventBus.emit("teacherName1", "教室", "上课", "打架", "愤怒");
+```
+
+:::
 ::: info
 This is an info box.
 :::
