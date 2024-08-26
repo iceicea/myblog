@@ -1,7 +1,7 @@
 ---
 # https://vitepress.dev/reference/default-theme-home-page
 layout: home
-title: "333"
+title: "记录一下"
 hero:
   name: "My Awesome Project"
   text: "A VitePress Site"
