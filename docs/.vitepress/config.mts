@@ -66,6 +66,10 @@ export default defineConfig({
               text: "什么是Fiber",
               link: "/interview/everyday/20240824",
             },
+            {
+              text: "软链接和硬链接",
+              link: "/interview/everyday/20240826",
+            },
           ],
         },
       ],

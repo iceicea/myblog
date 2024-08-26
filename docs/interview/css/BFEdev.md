@@ -131,7 +131,7 @@
 }
 ```
 
-## 4.实现两列布局
+## 4. 实现两列布局
 
 ::: tip
 
@@ -178,6 +178,254 @@
 .right {
   background-color: #2973af;
   /* your code here */
+}
+```
+
+:::
+
+## 5. 具有最大高度的 modal
+
+[题目地址](https://bigfrontend.dev/css/modal-with-max-height)
+![alt](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408251414697.png)
+::: tip
+
+1. 使用 cal 计算高度
+2. 使用 grid/flex
+
+:::
+
+::: code-group
+
+```css [cal计算高度]
+.modals {
+}
+
+.modal {
+  width: 300px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.modal-header {
+  background-color: #f44336;
+  height: 50px;
+}
+
+.modal-body {
+  background-color: #2973af;
+  height: calc(100vh - 110px);
+  max-height: 250px;
+}
+```
+
+```css [grid]
+.modals {
+  display: grid;
+  place-items: center;
+  padding: 30px;
+  width: 100%;
+  height: 100%;
+}
+
+.modal {
+  width: 300px;
+  max-height: 300px;
+  height: 100%;
+  display: grid;
+  grid-template-rows: 50px auto;
+}
+
+.modal-header {
+  background-color: #f44336;
+}
+
+.modal-body {
+  background-color: #2973af;
+}
+```
+
+:::
+
+## 6. 修改默认的 Checkbox 样式
+
+![alt](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408251430087.png)
+::: code-group
+
+```css [使用appearance属性]
+.my-checkbox {
+  display: flex;
+}
+input[type="checkbox"] {
+  /* Disable default item */
+  appearance: none;
+  align-self: center;
+  width: 10px;
+  height: 10px;
+  border: none;
+  border-radius: 50%;
+  background-color: gray;
+}
+input[type="checkbox"]:checked {
+  background-color: green;
+}
+```
+
+```css [使用伪元素]
+.my-checkbox {
+  position: relative;
+}
+.my-checkbox input {
+  position: absolute;
+  left: -99999px;
+}
+.my-checkbox span::before {
+  background-color: gray;
+  content: "";
+  display: inline-block;
+  border-radius: 50%;
+  height: 10px;
+  width: 10px;
+}
+.my-checkbox input:checked + span::before {
+  background-color: green;
+}
+```
+
+:::
+
+## 7. a row(间隔行样式)
+
+::: tip
+要求:
+
+1. 高 50px
+2. 背景颜色为#eee,如果有相邻行,偶数行颜色为#ddd
+3. top & bottom border 1px #ccc 如果有相邻行,边框要融合成一个
+
+:::
+![alt](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408251440407.png)
+::: code-group
+
+```css [:nth-child()]
+.row {
+  background: #eee;
+  border-bottom: 1px solid #ccc;
+  height: 50px;
+  width: 100%;
+}
+.row:nth-child(even) {
+  background: #ddd;
+}
+.row:first-child {
+  border-top: 1px solid #ccc;
+}
+```
+
+```css [.row + .row]
+.row {
+  width: 100%;
+  height: 50px;
+  background: #eee;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+.row:nth-child(even) {
+  background: #ddd;
+}
+.row + .row {
+  border-top: 0px;
+}
+```
+
+:::
+
+## 8. Twitter's website layout
+
+![alt](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408251451405.png)
+:::tip 要求
+
+- 当视口宽度不够时，将左栏设置为 40px 宽，将中间栏设置为拉伸。
+- 中间列的最大宽度为 240px
+- 当有足够的空间时，显示宽度为 120px 的右栏
+- 如果还有更多空间，请将左栏设置为 80px
+- 当右列可见时，设置与视口边框水平最小 10px 的空间
+  :::
+
+```css
+.container {
+  height: 150px;
+  text-align: center;
+  line-height: 150px;
+  justify-content: center;
+  display: flex;
+}
+.left {
+  background-color: #eee;
+  min-width: 40px;
+}
+.middle {
+  background-color: #ddd;
+  max-width: 240px;
+  flex: 1;
+}
+.right {
+  background-color: #eee;
+  display: none;
+}
+@media screen and (min-width: 420px) {
+  .right {
+    display: block;
+    width: 120px;
+  }
+}
+@media screen and (min-width: 460px) {
+  .left {
+    width: 80px;
+  }
+}
+```
+
+## 9. 多列文本
+
+![alt](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408251453892.png)
+:::tip 要求
+
+- 分为 3 列
+- 使用 #ddd 的 1px line 作为分隔符
+- 在每列周围、容器边框和分隔符上添加 10px 空间
+  :::
+
+```css
+.three-column-text {
+  columns: 3 auto;
+  column-rule: solid 1px #ddd;
+  column-gap: 20px;
+  padding: 10px;
+}
+```
+
+## 10. 黄金比例矩形
+
+![alt](https://raw.githubusercontent.com/iceicea/MyPic/master/blog/202408251455597.png)
+::: code-group
+
+```css [aspect-ratio属性]
+.golden-ratio {
+  background-color: #ccc;
+  aspect-ratio: 1.618;
+}
+```
+
+```css [伪元素]
+.golden-ratio {
+  background-color: #ccc;
+}
+.golden-ratio::before {
+  content: "";
+  display: block;
+  padding-bottom: 61.8%;
 }
 ```
 
