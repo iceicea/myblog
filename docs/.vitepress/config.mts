@@ -70,6 +70,10 @@ export default defineConfig({
               text: "软链接和硬链接",
               link: "/interview/everyday/20240826",
             },
+            {
+              text: "点访问和括号访问",
+              link: "/interview/everyday/20240827",
+            },
           ],
         },
       ],
