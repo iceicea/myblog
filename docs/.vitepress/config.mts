@@ -74,6 +74,10 @@ export default defineConfig({
               text: "点访问和括号访问",
               link: "/interview/everyday/20240827",
             },
+            {
+              text: "TS装饰器和依赖注入",
+              link: "/interview/everyday/20240828",
+            },
           ],
         },
       ],
