@@ -78,6 +78,10 @@ export default defineConfig({
               text: "TS装饰器和依赖注入",
               link: "/interview/everyday/20240828",
             },
+            {
+              text: "变量遮蔽",
+              link: "/interview/everyday/20240829",
+            },
           ],
         },
       ],
