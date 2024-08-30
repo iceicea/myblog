@@ -82,6 +82,10 @@ export default defineConfig({
               text: "变量遮蔽",
               link: "/interview/everyday/20240829",
             },
+            {
+              text: "Promise A+规范",
+              link: "/interview/everyday/20240830",
+            },
           ],
         },
       ],
